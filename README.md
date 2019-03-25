@@ -150,13 +150,14 @@ fn main() {
     cc::Build::new()
         .cpp(true) // Switch to C++ library compilation.
         .file("foo.cpp")
-        .compile("libfoo.a");
+        .compile("foo");
 }
 ```
 
 When using C++ library compilation switch, the `CXX` and `CXXFLAGS` env
 variables are used instead of `CC` and `CFLAGS` and the C++ standard library is
-linked to the crate target.
+linked to the crate target. So if you want to link both C and C++ code,
+you need to write two separate `Build` commands.
 
 ## CUDA C++ support
 
@@ -181,7 +182,7 @@ fn main() {
         // Generate code for Pascal (Jetson TX2).
         .flag("-gencode").flag("arch=compute_62,code=sm_62")
         .file("bar.cu")
-        .compile("libbar.a");
+        .compile("bar");
 }
 ```
 
